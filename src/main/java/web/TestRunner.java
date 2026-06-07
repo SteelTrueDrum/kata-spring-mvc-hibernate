@@ -14,6 +14,7 @@ import java.sql.Connection;
 
 public class TestRunner {
     public static void main(String[] args) {
+        System.out.println("Starting test class...");
 
 //        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 //        try (EntityManagerFactory entityManagerFactory = new
@@ -38,10 +39,10 @@ public class TestRunner {
 //
 //        context.close();
 
-
+        System.out.println("Creating User...");
         User user = new User("Ivan", "Volkov", "ivanvolkov@mail.ru");
         User user2 = new User("Alexander", "Volkov", "alexvolkov@mail.ru");
 
-        System.out.println("Test OK");
+        System.out.println("Test END");
     }
 }

@@ -4,13 +4,15 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    // Метод, указывающий на класс конфигурации
+    // Сюда передается класс вашей корневой конфигурации (база данных, безопасность и т.д.), если есть
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class<?>[]{
+                AppConfig.class
+        };
     }
 
-    // Добавление конфигурации, в которой инициализируем ViewResolver, для корректного отображения jsp.
+    // Указываем класс вашей Web-конфигурации (где лежат бины Thymeleaf и настройки контроллеров)
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[]{
@@ -18,7 +20,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         };
     }
 
-    // Данный метод указывает url, на котором будет базироваться приложение
+    // Заменяет тег <servlet-mapping> из web.xml. Перенаправляет все запросы на DispatcherServlet
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
