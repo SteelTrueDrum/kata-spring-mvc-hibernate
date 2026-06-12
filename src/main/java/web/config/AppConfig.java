@@ -47,7 +47,7 @@ public class AppConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getDataSource());
-        em.setPackagesToScan("web.model"); // Пакет для ваших будущих @Entity классов
+        em.setPackagesToScan("web.model"); // Пакет для будущих @Entity классов
 
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");

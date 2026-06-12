@@ -17,12 +17,13 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
  * */
 
 @Configuration
-//@EnableWebMvc
+@EnableWebMvc
 @ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 
+    // Внедряем ApplicationContext для работы резолвера шаблонов
     @Autowired
     public WebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
