@@ -40,12 +40,14 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String saveOrUpdateUser(@ModelAttribute("user") User user) {
-        if (user.getId() == null) {
-            userService.saveUser(user);
-        } else {
-            userService.updateUser(user);
-        }
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/";
+    }
+
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.updateUser(user);
         return "redirect:/";
     }
 

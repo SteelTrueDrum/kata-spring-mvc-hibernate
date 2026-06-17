@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
@@ -19,32 +20,44 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
     @Override
-    @Transactional
     public void saveUser(User user) {
         userDao.saveUser(user);
     }
 
     @Override
-    @Transactional
     public User getUserById(Long id) {
-        return userDao.getUserById(id);
+        User user = userDao.getUserById(id);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found with id: " + id);
+        }
+        return user;
     }
 
     @Override
-    @Transactional
     public void updateUser(User user) {
+        if (user.getId() == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+        this.getUserById(user.getId());
         userDao.updateUser(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+
+        // Проверяем наличие пользователя в БД перед удалением
+        if (userDao.getUserById(id) == null) {
+            throw new IllegalArgumentException("Cannot delete. User not found with id: " + id);
+        }
+
         userDao.deleteUser(id);
     }
 }

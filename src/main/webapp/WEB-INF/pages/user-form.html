@@ -9,7 +9,8 @@
 
 <h2 th:text="${user.id == null} ? 'Добавить пользователя' : 'Редактировать пользователя'">Форма</h2>
 
-<form th:action="@{/save}" th:object="${user}" method="post">
+<!-- Динамически меняем URL: /save для создания, /update для редактирования -->
+<form th:action="@{|${user.id == null ? '/save' : '/update'}|}" th:object="${user}" method="post">
     <!-- Скрытое поле ID для корректного обновления -->
     <input type="hidden" th:field="*{id}" />
 
