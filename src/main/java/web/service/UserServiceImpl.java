@@ -49,15 +49,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("User ID cannot be null");
-        }
-
-        // Проверяем наличие пользователя в БД перед удалением
-        if (userDao.getUserById(id) == null) {
-            throw new IllegalArgumentException("Cannot delete. User not found with id: " + id);
-        }
-
         userDao.deleteUser(id);
     }
 }
