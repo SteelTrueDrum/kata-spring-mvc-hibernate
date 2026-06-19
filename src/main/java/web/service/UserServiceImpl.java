@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +14,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
 
+    @Autowired
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -43,12 +43,13 @@ public class UserServiceImpl implements UserService {
         if (user.getId() == null) {
             throw new IllegalArgumentException("User ID cannot be null");
         }
-        this.getUserById(user.getId());
+        getUserById(user.getId());
         userDao.updateUser(user);
     }
 
     @Override
     public void deleteUser(Long id) {
+        getUserById(id);
         userDao.deleteUser(id);
     }
 }
